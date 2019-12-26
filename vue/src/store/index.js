@@ -9,6 +9,12 @@ export const store = new Vuex.Store({
 	loginedPw: '',
 	id: '',
 	name: '',
-	birthday: ''
+	birthday: '',
+	gender: '',
+	hak: '',
+	ban: '',
+	score: '',
+	person: {},
+	loginstate : false
   }
 })

@@ -2,13 +2,13 @@
 	<div id="app">
 	<layout>
 		<template #header="header">
-		
 		<h2>{{header.title}}</h2>
-			<ul id="headstyle" class="menu">
+		<component :is="!loginCheck ? 'pre-auth' : 'post-auth'"></component>
+			<!-- <ul id="headstyle" class="menu">
 				<button v-for="i of headers" :key= "i.menu">
 					<router-link :to="i.link">{{i.menu}}</router-link>
 				</button>
-			</ul>
+			</ul> -->
 		</template>
 		<template #sidebar="sidebar">  <!-- 사이더바에 메뉴 만들기 -->
 			<ul class="menu">
@@ -27,8 +27,11 @@
 </template>
 <script>
 import Layout from '@/components/cmm/Layout.vue'
+import PostAuth from '@/components/cmm/PostAuth.vue'
+import PreAuth from '@/components/cmm/PreAuth.vue'
+import { store } from "@/store"
 export default {
-	components: {Layout},
+	components: {Layout,PostAuth,PreAuth},
 	data(){
 		return { 
 			sidebars: [
@@ -38,11 +41,12 @@ export default {
 				{menu: "글삭제", link: "/remove"},
 				{menu: "검색", link: "/search"}
 
-			],
-			headers: [
-				{menu: "조인", link: "/join"},
-				{menu: "로그인", link: "/login"}
 			]
+		}
+	},
+	computed:{
+		loginCheck: function(){
+			return store.state.loginstate
 		}
 	}
 }

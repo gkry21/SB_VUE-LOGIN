@@ -45,14 +45,17 @@ export default {
 				passwd: this.passwd
 			}
 			let headers = {
-'authorization': 'JWT fefege..',
-'Accept' : 'application/json',
-'Content-Type': 'application/json'
-}
+			'authorization': 'JWT fefege..',
+			'Accept' : 'application/json',
+			'Content-Type': 'application/json'
+			}
 			axios
 			.post(url, data, headers)
 			.then(res=>{
 				if(res.data.result === "SUCCESS"){
+					store.state.loginedUid = this.person.userid
+					store.state.loginedPw = this.person.passwd
+					/* if(res.data.result===){} */
 					alert(`로그인 성공 ${this.userid}`)
 					this.person = res.data.person
 					store.state.loginedUid = this.person.userid
@@ -60,11 +63,16 @@ export default {
 					store.state.id = this.person.id
 					store.state.name = this.person.name
 					store.state.birthday = this.person.birthday
+					store.state.gender = this.person.gender
+					store.state.hak = this.person.hak
+					store.state.ban = this.person.ban
+					store.state.score = this.person.score
+					store.state.person = res.data.person
+					store.state.loginstate = true
 					alert(`스토어에 저장성공 ${store.state.name}`)
-					this.$router.push({path:'/mypage'})
+					this.$router.push({path:'/pagepick'})
 				}else{
 					alert(`로그인 실패`)
-					this.$router.push({path:'/login'})
 				}
 			})
 			.catch(()=>{

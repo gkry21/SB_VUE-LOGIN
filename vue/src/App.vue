@@ -1,6 +1,7 @@
 <template>
-  <div id= "back">
+
   <div id="app">
+    <div id= "back">
     <Home></Home>
     <img alt="Cat foot" src="./assets/cat.png" style="width:200px;">
   </div>

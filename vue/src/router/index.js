@@ -7,7 +7,11 @@ import Remove from '@/components/board/Remove.vue'
 import List from '@/components/board/List.vue'
 import Search from '@/components/board/Search.vue'
 import Update from '@/components/board/Update.vue'
-import Mypage from '@/components/member/Mypage.vue'
+import Mypage from '@/components/member/Mypage.vue' 
+import Mypageupdate from '@/components/member/Mypageupdate.vue'
+import Admin from '@/components/member/Admin.vue'
+import Pagepick from '@/components/member/Pagepick.vue'
+
 
 Vue.use(Router)
 
@@ -21,7 +25,10 @@ export default new Router({
 		{path: '/list' ,name: 'list',component: List },
 		{path: '/search' ,name: 'search',component: Search },
 		{path: '/update' ,name: 'update',component: Update },
-		{path: '/mypage' ,name: 'mypage',component: Mypage }
+		{path: '/mypage' ,name: 'mypage',component: Mypage },
+		{path: '/mypageupdate' ,name: 'mypageupdate',component: Mypageupdate },
+		{path: '/admin' ,name: 'admin',component: Admin },
+		{path: '/pagepick' ,name: 'pagepick',component: Pagepick }
 	]
 	
 })

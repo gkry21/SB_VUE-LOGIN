@@ -5,8 +5,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,6 +42,7 @@ public class PersonController {
 		printer.accept("로그인 진입");
 		printer.accept(String.format("USERID: %s", person.getUserid()));
 		printer.accept(String.format("PASSWORD: %s", person.getPasswd()));
+		
 		person = personRepository.findByUseridAndPasswd(
 				param.getUserid(),
 				param.getPasswd());
@@ -53,12 +57,38 @@ public class PersonController {
 		return map;
 	}
 	
-	@GetMapping("/join")
-	public Map<?,?> join(@RequestParam("userid")String userid, @RequestParam("passwd")String passwd){
-		Map<String, String> map = new HashMap<>();
-		System.out.println("뷰가 보낸 아이디" + userid + "," + passwd);
-		map.put("userid", userid);
-		return map;
+	@RequestMapping("/join")
+	public void join(@RequestBody Person person){
+		/* HashMap<String, Object> map = new HashMap<>(); */
+		printer.accept("가입진입");
+		printer.accept(person.toString());
+		personRepository.save(person);
+		/*
+		 * if(person != null ) { System.out.println("가입 성공"); map.put("result",
+		 * "SUCCESS"); }else { System.out.println("가입 실패"); map.put("result", "FAIL"); }
+		 */
 		
+	}
+	@DeleteMapping("/withdrawal/{userid}")
+	public void withdrawal(@PathVariable String userid) {
+		printer.accept("로그아웃 진입");  //들어왔는지 확인하는 코드
+		printer.accept(String.format("USERID: %s", person.getUserid())); //들어온 정보 확인
+		printer.accept(String.format("PASSWORD: %s", person.getPasswd())); //들어온 정보 확인
+		person = personRepository.findByUserid(userid);  //레파지토리에서 아이디받아오기
+		personRepository.delete(person); //레파지토리에서 들어온 정보 삭제
+	}
+	@PutMapping("/modify/{userid}")
+	public HashMap<String, Object> modify(@RequestBody Person person) {
+		HashMap<String, Object> map = new HashMap<>();
+		printer.accept("수정 진입");
+		personRepository.save(person);
+		if(person != null ) {
+			System.out.println("가입 성공");
+			map.put("result", "SUCCESS");
+		}else {
+			System.out.println("가입 실패");
+			map.put("result", "FAIL");
+		}
+		return map;
 	}
 }

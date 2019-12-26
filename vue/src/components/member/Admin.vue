@@ -1,6 +1,7 @@
 <template>
   <table>
     <tr>
+	<h1>관리자 화면</h1>
       <td>
       <legend><h3>비밀번호 </h3></legend>
       <h5>{{person.passwd}}</h5>
